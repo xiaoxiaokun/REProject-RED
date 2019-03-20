@@ -4,9 +4,10 @@
 from django.conf.urls import url
 from django.views.decorators.csrf import csrf_exempt
 
-from api import views_member
+from api import views_member, views_credit
 from api import views_commodity
 from api import views_recommendations
+from api import views_hotcommend
 urlpatterns = [
     # 会员信息增改删查操作
     url(r'^member/$', views_member.MemberView.as_view(), name="member"),
@@ -15,6 +16,9 @@ urlpatterns = [
     url(r'^member/checkreg', csrf_exempt(views_member.MemberCheckRegView.as_view()), name="member-checkreg"),
     url(r'^member/info', views_member.MemberInfoView.as_view(), name="member-info"),
     url(r'^member/order', views_member.MemberOrderView.as_view(), name='member-order'),
+    url(r'^member/credit_create', views_credit.CreditCreateView.as_view(), name='credit-create'),
+    url(r'^member/credit_list', views_credit.CreditListView.as_view(), name='credit-list'),
+
     url(r'^commodity/search', views_commodity.CommoditySearchView.as_view(), name="commodity-search"),
 
     url(r'^commodity/commodity_type', views_commodity.CommodityTypeView.as_view(), name="commodity-type"),
@@ -24,6 +28,8 @@ urlpatterns = [
     url(r'^recommendations/toprecommendations', csrf_exempt(views_recommendations.TopRecommendationsView.as_view()), name="TopRecommendations"),
     url(r'^recommendations/allrecommendations', csrf_exempt(views_recommendations.AllRecommendationsView.as_view()),
         name="AllRecommendations"),
+
+    url(r'^hotcommend/hot_commodity', views_hotcommend.HotCommodityView.as_view(), name="hot-commodity"),
     # url(r'^user/list$', views.UserListView.as_view(), name="user-list"),
     # url(r'^user/create$', views.UserCreateView.as_view(), name="user-create"),
     # url(r'^user/enable$', views.UserEnableView.as_view(), name="user-enable"),
